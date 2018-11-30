@@ -8,6 +8,12 @@
             "appId": "",
             "appPassword": "",
             "id": "1"
+        },
+        {
+            "type": "endpoint",
+            "name": "production",
+            "endpoint": "https://lukechatbot.herokuapp.com/api/messages",
+            "id": "2"
         }
     ],
     "padlock": "",
