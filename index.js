@@ -50,6 +50,7 @@ try {
     process.exit();
 }
 
+console.log(BOT_CONFIGURATION);
 // Get bot endpoint configuration by service name
 const endpointConfig = botConfig.findServiceByNameOrId(BOT_CONFIGURATION);
 
