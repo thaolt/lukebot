@@ -29,7 +29,7 @@ class MyBot {
       // let count = await this.countProperty.get(turnContext);
       // count = count === undefined ? 1 : ++count;
       let command = turnContext.activity.text.toLowerCase();
-      command = command.replace(/^lukechatbot/, '');
+      command = command.replace(/^.*\s/, '');
       command = command.trim();
       let message = "";
       if (command == "tet") {
