@@ -34,7 +34,7 @@ class MyBot {
       let message = "";
       if (command == "tet") {
         const remain_days = - moment().diff( '2019-02-05', 'days');
-        message = `Còn có ${remain_days} ngày nữa là tới tết à. Cứ từ từ.`;
+        message = `Còn có ${remain_days} ngày nữa là tới tết à. Cứ từ từ. Tết này không có thưởng đâu Danh ơi.`;
 
         await turnContext.sendActivity(message);
       }
