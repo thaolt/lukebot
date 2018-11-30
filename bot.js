@@ -27,7 +27,7 @@ classifier.train();
 const { ActivityTypes } = require('botbuilder');
 
 // Turn counter property
-const TURN_COUNTER_PROPERTY = 'turnCounterProperty';
+// const TURN_COUNTER_PROPERTY = 'turnCounterProperty';
 
 class MyBot {
     /**
@@ -37,7 +37,7 @@ class MyBot {
     constructor(conversationState) {
         // Creates a new state accessor property.
         // See https://aka.ms/about-bot-state-accessors to learn more about the bot state and state accessors.
-        this.countProperty = conversationState.createProperty(TURN_COUNTER_PROPERTY);
+        // this.countProperty = conversationState.createProperty(TURN_COUNTER_PROPERTY);
         this.conversationState = conversationState;
     }
     /**
@@ -56,7 +56,7 @@ class MyBot {
             let response = '';
             if (message.toLowerCase() === 'tet') {
                 const remainDays = -moment().diff('2019-02-05', 'days');
-                response = `Còn có ${ remainDays } ngày nữa là tới tết à. Cứ từ từ. Tết này không có thưởng đâu Danh ơi.`;
+                response = `Còn có ${ remainDays } ngày nữa là tới tết à. Cứ từ từ. Tết này không có thưởng đâu ${ turnContext.activity.from.name } ơi.`;
 
                 await turnContext.sendActivity(response);
             }
