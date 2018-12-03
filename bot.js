@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 const moment = require('moment');
 const vntk = require('vntk');
-const ElizaBot = require('elizaBot');
+const ElizaBot = require('elizabot');
 const eliza = new ElizaBot();
 const initial = eliza.getInitial();
 
