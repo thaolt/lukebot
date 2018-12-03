@@ -111,7 +111,6 @@ class MyBot {
                 // await turnContext.sendActivity('ELIZA: ' + reply);
                 try {
                     message = await translate(message, { to: 'en' });
-
                     // console.log(message);
 
                     message = message.text;
@@ -130,8 +129,9 @@ class MyBot {
                     };
 
                     let resp = await fetchResponse();
-                    resp = await translate(message, { to: 'vi' });
-
+                    // console.log(resp);
+                    resp = await translate(resp, { to: 'vi' });
+                    // console.log(resp);
                     await turnContext.sendActivity(resp.text);
                 } catch (error) {
                     console.log(error);
