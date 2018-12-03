@@ -5,7 +5,9 @@ const Cleverbot = require('cleverbot.io');
 const path = require('path');
 
 const ENV_FILE = path.join(__dirname, '.env');
-const env = require('dotenv').config({ path: ENV_FILE });
+require('dotenv').config({ path: ENV_FILE });
+
+const translate = require('@k3rn31p4nic/google-translate-api');
 
 var bot = new Cleverbot(process.env.CLEARBOT_API_USER, process.env.CLEARBOT_API_SECRET);
 bot.setNick('luke');
@@ -107,23 +109,32 @@ class MyBot {
                 // await turnContext.sendActivity('CLASSIFY: ' + classifier.classify(message));
                 // const reply = eliza.transform(response);
                 // await turnContext.sendActivity('ELIZA: ' + reply);
-                const fetchResponse = function() {
-                    return new Promise((resolve, reject) => {
-                        bot.ask(message, (err, response) => {
-                            // console.log(err, response); // Will likely be: "Living in a lonely world"
-                            if (err) {
-                                return reject(err);
-                            } else {
-                                return resolve(response);
-                            }
-                        });
-                    });
-                };
-
-                const resp = await fetchResponse();
                 try {
-                    await turnContext.sendActivity(resp);
+                    message = await translate(message, { to: 'en' });
+
+                    // console.log(message);
+
+                    message = message.text;
+
+                    const fetchResponse = function() {
+                        return new Promise((resolve, reject) => {
+                            bot.ask(message, (err, response) => {
+                                // console.log(err, response); // Will likely be: "Living in a lonely world"
+                                if (err) {
+                                    return reject(err);
+                                } else {
+                                    return resolve(response);
+                                }
+                            });
+                        });
+                    };
+
+                    let resp = await fetchResponse();
+                    resp = await translate(message, { to: 'vi' });
+
+                    await turnContext.sendActivity(resp.text);
                 } catch (error) {
+                    console.log(error);
                     await turnContext.sendActivity('Oops! Something is wrong, error occured.');
                 }
             }
