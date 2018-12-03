@@ -116,11 +116,11 @@ class MyBot {
                     message = await translate(message, { to: 'en' });
                     message = message.text;
 
-                    console.log('original message', message);
+                    // console.log('original message', message);
                     if (isQuestion && message.substr(-1) !== '?') {
                         message += '?';
                     }
-                    console.log('translated message:', message);
+                    // console.log('translated message:', message);
 
                     const fetchResponse = function() {
                         return new Promise((resolve, reject) => {
@@ -136,7 +136,7 @@ class MyBot {
                     };
 
                     let resp = await fetchResponse();
-                    console.log('original response:', resp);
+                    // console.log('original response:', resp);
                     resp = await translate(resp, { to: 'vi' });
                     await turnContext.sendActivity(resp.text);
                 } catch (error) {
