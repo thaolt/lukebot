@@ -80,6 +80,8 @@ class MyBot {
             let message = turnContext.activity.text;
             message = message.replace(/^(luke|lukechatbot)\s+/, '');
             message = message.trim();
+            const isQuestion = message.substr(-1) === '?';
+
             let response = '';
             if (message.toLowerCase() === 'tet') {
                 const remainDays = -moment().diff('2019-02-05', 'days');
@@ -114,6 +116,9 @@ class MyBot {
                     // console.log(message);
 
                     message = message.text;
+                    if (isQuestion && message.substr(-1) !== '?') {
+                        message += '?';
+                    }
 
                     const fetchResponse = function() {
                         return new Promise((resolve, reject) => {
