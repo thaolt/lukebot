@@ -79,6 +79,7 @@ class MyBot {
             // count = count === undefined ? 1 : ++count;
             let message = turnContext.activity.text;
             message = message.replace(/^(luke|lukechatbot)\s+/, '');
+            message = message.replace(/\s+(luke|lukechatbot)/, ' you');
             message = message.trim();
             const isQuestion = message.substr(-1) === '?';
 
@@ -113,12 +114,13 @@ class MyBot {
                 // await turnContext.sendActivity('ELIZA: ' + reply);
                 try {
                     message = await translate(message, { to: 'en' });
-                    // console.log(message);
-
                     message = message.text;
+
+                    console.log('original message', message);
                     if (isQuestion && message.substr(-1) !== '?') {
                         message += '?';
                     }
+                    console.log('translated message:', message);
 
                     const fetchResponse = function() {
                         return new Promise((resolve, reject) => {
@@ -134,9 +136,8 @@ class MyBot {
                     };
 
                     let resp = await fetchResponse();
-                    // console.log(resp);
+                    console.log('original response:', resp);
                     resp = await translate(resp, { to: 'vi' });
-                    // console.log(resp);
                     await turnContext.sendActivity(resp.text);
                 } catch (error) {
                     console.log(error);
