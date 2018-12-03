@@ -2,7 +2,16 @@
 // Licensed under the MIT License.
 const moment = require('moment');
 const vntk = require('vntk');
-var posTag = vntk.posTag();
+const ElizaBot = require('elizaBot');
+const eliza = new ElizaBot();
+const initial = eliza.getInitial();
+
+eliza.reset();
+
+eliza.memSize = 100; // (default: 20)
+
+
+// var posTag = vntk.posTag();
 // var dictionary = vntk.dictionary();
 // var ner = vntk.ner();
 
@@ -76,10 +85,12 @@ class MyBot {
             // await this.countProperty.set(turnContext, count);
             if (response === '') {
                 // console.log(posTag.tag(message));
-                await turnContext.sendActivity('POS: ' + posTag.tag(message, 'text'));
+                // await turnContext.sendActivity('POS: ' + posTag.tag(message, 'text'));
                 // console.log(ner.tag(message));
                 // await turnContext.sendActivity('NER: ' + ner.tag(message, 'text'));
-                await turnContext.sendActivity('CLASSIFY: ' + classifier.classify(message));
+                // await turnContext.sendActivity('CLASSIFY: ' + classifier.classify(message));
+                const reply = eliza.transform(response);
+                await turnContext.sendActivity('ELIZA: ' + reply);
             }
         } else {
             // await turnContext.sendActivity(`[${turnContext.activity.type} event detected]`);
