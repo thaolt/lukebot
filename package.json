@@ -14,6 +14,7 @@
     "dependencies": {
         "botbuilder": "^4.0.6",
         "botframework-config": "^4.0.6",
+        "cleverbot.io": "^1.0.4",
         "dotenv": "^6.0.0",
         "elizabot": "0.0.2",
         "moment": "^2.22.2",

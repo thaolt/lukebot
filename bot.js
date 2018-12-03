@@ -1,37 +1,53 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 const moment = require('moment');
-const vntk = require('vntk');
-const ElizaBot = require('elizabot');
-const eliza = new ElizaBot();
-const initial = eliza.getInitial();
+const Cleverbot = require('cleverbot.io');
+const path = require('path');
 
-eliza.reset();
+const ENV_FILE = path.join(__dirname, '.env');
+const env = require('dotenv').config({ path: ENV_FILE });
 
-eliza.memSize = 100; // (default: 20)
+var bot = new Cleverbot(process.env.CLEARBOT_API_USER, process.env.CLEARBOT_API_SECRET);
+bot.setNick('luke');
 
+bot.create((err, session) => {
+    // session is your session name, it will either be as you set it previously, or cleverbot.io will generate one for you
 
+    // Woo, you initialized cleverbot.io.  Insert further code here
+
+    console.log(err, session);
+});
+
+// const vntk = require('vntk');
 // var posTag = vntk.posTag();
 // var dictionary = vntk.dictionary();
 // var ner = vntk.ner();
 
-var classifier = new vntk.BayesClassifier();
+// var classifier = new vntk.BayesClassifier();
 
-classifier.addDocument('khi nào trận chiến đã kết thúc?', 'when');
-classifier.addDocument('tàu rời đi lúc mấy giờ?', 'when');
-classifier.addDocument('trận đấu diễn ra vào thời gian nào?', 'when');
-classifier.addDocument('anh ấy rời đi vào lúc mấy giờ?', 'when');
-classifier.addDocument('bao giờ thì đến lễ hội hóa trang?', 'when');
-classifier.addDocument('ai phát hiện ra điện ?', 'who');
-classifier.addDocument('người sáng lập ra microsoft là ai?', 'who');
-classifier.addDocument('ai kiếm được tiền của họ một cách chăm chỉ ?', 'who');
-classifier.addDocument('người phát minh tạo ra.', 'who');
-classifier.addDocument('gia đình bạn gồm những ai?', 'who');
-classifier.addDocument('làm thế nào để bẻ khóa?', 'how');
-classifier.addDocument('Việt Nam nằm ở đâu?', 'where');
-classifier.addDocument('Hà Nội kế tỉnh nào?', 'where');
+// classifier.addDocument('khi nào trận chiến đã kết thúc?', 'when');
+// classifier.addDocument('tàu rời đi lúc mấy giờ?', 'when');
+// classifier.addDocument('trận đấu diễn ra vào thời gian nào?', 'when');
+// classifier.addDocument('anh ấy rời đi vào lúc mấy giờ?', 'when');
+// classifier.addDocument('bao giờ thì đến lễ hội hóa trang?', 'when');
+// classifier.addDocument('ai phát hiện ra điện ?', 'who');
+// classifier.addDocument('người sáng lập ra microsoft là ai?', 'who');
+// classifier.addDocument('ai kiếm được tiền của họ một cách chăm chỉ ?', 'who');
+// classifier.addDocument('người phát minh tạo ra.', 'who');
+// classifier.addDocument('gia đình bạn gồm những ai?', 'who');
+// classifier.addDocument('làm thế nào để bẻ khóa?', 'how');
+// classifier.addDocument('Việt Nam nằm ở đâu?', 'where');
+// classifier.addDocument('Hà Nội kế tỉnh nào?', 'where');
 
-classifier.train();
+// classifier.train();
+
+// const ElizaBot = require('elizabot');
+// const eliza = new ElizaBot();
+// const initial = eliza.getInitial();
+
+// eliza.reset();
+
+// eliza.memSize = 100; // (default: 20)
 
 const { ActivityTypes } = require('botbuilder');
 
@@ -60,7 +76,7 @@ class MyBot {
             // let count = await this.countProperty.get(turnContext);
             // count = count === undefined ? 1 : ++count;
             let message = turnContext.activity.text;
-            message = message.replace(/^.*?\s/, '');
+            message = message.replace(/^(luke|lukechatbot)\s+/, '');
             message = message.trim();
             let response = '';
             if (message.toLowerCase() === 'tet') {
@@ -89,8 +105,27 @@ class MyBot {
                 // console.log(ner.tag(message));
                 // await turnContext.sendActivity('NER: ' + ner.tag(message, 'text'));
                 // await turnContext.sendActivity('CLASSIFY: ' + classifier.classify(message));
-                const reply = eliza.transform(response);
-                await turnContext.sendActivity('ELIZA: ' + reply);
+                // const reply = eliza.transform(response);
+                // await turnContext.sendActivity('ELIZA: ' + reply);
+                const fetchResponse = function() {
+                    return new Promise((resolve, reject) => {
+                        bot.ask(message, (err, response) => {
+                            // console.log(err, response); // Will likely be: "Living in a lonely world"
+                            if (err) {
+                                return reject(err);
+                            } else {
+                                return resolve(response);
+                            }
+                        });
+                    });
+                };
+
+                const resp = await fetchResponse();
+                try {
+                    await turnContext.sendActivity(resp);
+                } catch (error) {
+                    await turnContext.sendActivity('Oops! Something is wrong, error occured.');
+                }
             }
         } else {
             // await turnContext.sendActivity(`[${turnContext.activity.type} event detected]`);
