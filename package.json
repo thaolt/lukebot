@@ -15,25 +15,26 @@
         "node": "10.15.x"
     },
     "dependencies": {
-        "@k3rn31p4nic/google-translate-api": "^1.0.5",
-        "botbuilder": "^4.0.6",
-        "botframework-config": "^4.0.6",
+        "@k3rn31p4nic/google-translate-api": "^1.1.1",
+        "botbuilder": "^4.9.2",
+        "botframework-config": "^4.9.2",
         "cleverbot.io": "^1.0.4",
-        "dotenv": "^6.0.0",
+        "csv-parse": ">=4.4.6",
+        "dotenv": "^6.2.0",
         "elizabot": "0.0.2",
-        "moment": "^2.22.2",
-        "newrelic": "^4.11.0",
+        "moment": "^2.27.0",
+        "newrelic": "^4.13.1",
         "restify": "^6.3.4"
     },
     "devDependencies": {
-        "eslint": "^5.6.0",
-        "eslint-config-standard": "^12.0.0",
-        "eslint-plugin-import": "^2.14.0",
-        "eslint-plugin-node": "^7.0.1",
-        "eslint-plugin-promise": "^4.0.1",
-        "eslint-plugin-standard": "^4.0.0",
-        "nodemon": "^1.18.4",
         "@types/node": "10.10.2",
-        "@types/restify": "7.2.4"
+        "@types/restify": "7.2.4",
+        "eslint": "^5.16.0",
+        "eslint-config-standard": "^12.0.0",
+        "eslint-plugin-import": "^2.22.0",
+        "eslint-plugin-node": "^7.0.1",
+        "eslint-plugin-promise": "^4.2.1",
+        "eslint-plugin-standard": "^4.0.1",
+        "nodemon": "^1.19.4"
     }
 }
