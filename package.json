@@ -12,7 +12,7 @@
         "watch": "nodemon ./index.js"
     },
     "engine": {
-      "node": "10.15.x"
+        "node": "10.15.x"
     },
     "dependencies": {
         "@k3rn31p4nic/google-translate-api": "^1.0.5",
