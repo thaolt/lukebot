@@ -22,7 +22,7 @@
         "csv-parse": ">=4.4.6",
         "dotenv": "^6.2.0",
         "elizabot": "0.0.2",
-        "moment": "^2.27.0",
+        "moment": "^2.29.2",
         "newrelic": "^4.13.1",
         "restify": "^6.3.4"
     },
